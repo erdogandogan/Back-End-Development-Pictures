@@ -56,7 +56,14 @@ def get_picture_by_id(id):
 ######################################################################
 @app.route("/picture", methods=["POST"])
 def create_picture():
-    pass
+    new_picture = request.get_json()
+
+    for picture in data:
+        if picture["id"] == new_picture["id"]:
+            return {"Message": f"picture with id {new_picture['id']} already present"}, 302
+
+    data.append(new_picture)
+    return jsonify(new_picture), 201
 
 ######################################################################
 # UPDATE A PICTURE
